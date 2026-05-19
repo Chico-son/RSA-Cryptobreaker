@@ -145,7 +145,7 @@ python3 rsa_test_harness.py
 
 ## Author
 
-**[Your Full Name]**
+**[Santiago H.]**
 The Heights School, Potomac, MD — Class of 2027
 Intended: University of Maryland, Mathematics / ACES Program
 

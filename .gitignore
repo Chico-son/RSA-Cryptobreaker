@@ -1,0 +1,24 @@
+# Compiled Java class files
+bin/
+*.class
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Runtime output (keys, ciphertexts generated during execution)
+output/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.iws
+
+# Logs
+*.log

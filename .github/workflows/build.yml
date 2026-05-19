@@ -1,0 +1,53 @@
+name: CryptoBreaker CI
+
+# Runs on every push and pull request to main.
+# During Phase 0: only verifies Python environment (no Java code yet).
+# During Phase 1+: compiles Java and runs test harness.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check:
+    name: Environment Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify Java version
+        run: java --version
+
+      - name: Verify Python version
+        run: python3 --version
+
+      - name: Check Python standard library modules
+        run: python3 -c "import json, base64, subprocess, math, random, time, sys; print('All modules OK')"
+
+      - name: Create output directories
+        run: mkdir -p bin output
+
+      - name: Compile Java (skips gracefully if no source files yet)
+        run: |
+          SOURCES=$(find src/main/java -name "*.java" 2>/dev/null | head -1)
+          if [ -z "$SOURCES" ]; then
+            echo "No Java source files yet — Phase 0 in progress"
+          else
+            find src/main/java -name "*.java" | xargs javac -d bin
+            echo "Compiled successfully"
+          fi
